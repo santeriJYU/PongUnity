@@ -7,11 +7,23 @@ using UnityEngine.SceneManagement;
 
 public class Score : Observer
 {
+    public SScore sscore = new SScore();
+
     public Text score;
-    int count = 0;
 
     public override void OnNotify()
     {
-        score.text = (++count).ToString();
+        score.text = sscore.IncreaseScore();
+    }
+}
+
+
+public class SScore
+{
+    public int count = 0;
+
+    public string IncreaseScore()
+    {
+        return (++count).ToString();
     }
 }

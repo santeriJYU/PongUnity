@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AI : Paddle
 {
+    public AILogic logic = new AILogic();
+
     public Ball ball;
     public float AIPaddleSpeed;
 
@@ -16,15 +18,23 @@ public class AI : Paddle
     // Update is called once per frame
     void LateUpdate()
     {
-        float ballOffset = ball.transform.position.x - transform.position.x;
+        base.movePaddle(logic.MoveAI(ball.transform.position.x - transform.position.x, AIPaddleSpeed));
+    }
+}
 
+public class AILogic
+{
+    public float MoveAI(float ballOffset, float AIPaddleSpeed)
+    {
         if (ballOffset < -0.5)
         {
-            base.movePaddle(-1 * AIPaddleSpeed);
+            return -1 * AIPaddleSpeed;
         }
         else if (ballOffset > 0.5)
         {
-            base.movePaddle(AIPaddleSpeed);
+            return AIPaddleSpeed;
         }
+
+        return 0f;
     }
 }
